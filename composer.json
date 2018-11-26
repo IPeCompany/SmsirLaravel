@@ -1,5 +1,5 @@
 {
-    "name": "phplusir/smsir",
+    "name": "IPeCompany/SmsirLaravel",
     "description": "Official Sms.ir Laravel Package",
     "keywords": ["laravel", "sms", "پیامک", "اس ام اس", "sendsms", "notifacation", "sms.ir"],
     "license": "MIT",
@@ -11,7 +11,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "phplusir\\smsir\\": "src"
+            "IPeCompany\\SmsirLaravel\\": "src"
         }
     },
     "require": {
