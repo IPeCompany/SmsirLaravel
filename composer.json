@@ -1,0 +1,22 @@
+{
+    "name": "phplusir/smsir",
+    "description": "Official Sms.ir Laravel Package",
+    "keywords": ["laravel", "sms", "پیامک", "اس ام اس", "sendsms", "notifacation", "sms.ir"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "moein.alizadeh",
+            "email": "moein.alizade@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "phplusir\\smsir\\": "src"
+        }
+    },
+    "require": {
+        "guzzlehttp/guzzle": "~6.0",
+        "zendframework/zend-diactoros" : "1.*.*",
+        "symfony/psr-http-message-bridge" : "1.*.*"
+    }
+}

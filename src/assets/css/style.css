@@ -1,0 +1,56 @@
+@font-face {
+    font-family: Shabnam;
+    src: url('../fonts/Shabnam.eot');
+    src: url('../fonts/Shabnam.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Shabnam.woff') format('woff'),
+    url('../fonts/Shabnam.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: Shabnam;
+    src: url('../fonts/Shabnam-Bold.eot');
+    src: url('../fonts/Shabnam-Bold.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Shabnam-Bold.woff') format('woff'),
+    url('../fonts/Shabnam-Bold.ttf') format('truetype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: Shabnam;
+    src: url('../fonts/Shabnam-Light.eot');
+    src: url('../fonts/Shabnam-Light.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Shabnam-Light.woff') format('woff'),
+    url('../fonts/Shabnam-Light.ttf') format('truetype');
+    font-weight: 300;
+}
+
+body,h1,h2,h3,h4,h5,h6 {
+    font-family: Shabnam;
+}
+
+.topbar {
+    background: white url("../img/topbar-header.jpg") no-repeat center;
+    background-size: cover;
+    height: 200px;
+    padding-top: 50px;
+    color: whitesmoke;
+}
+table td,table th {
+    text-align: center;
+}
+.btn {
+    padding: 0 5px;
+}
+.pagination>li {
+    display: inline-block;
+}
+.pagination {
+    display: block;
+    text-align: center;
+}
+.pagination>li>a, .pagination>li>span {
+    float: right;
+    margin-right: -4px;
+    margin-left: -3px;
+}
