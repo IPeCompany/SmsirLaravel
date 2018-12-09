@@ -2,10 +2,10 @@
 
 <p align="center">Official Laravel Package for sms.ir</p>
 
-[![Latest Stable Version](https://poser.pugx.org/phplusir/smsir/v/stable)](https://packagist.org/packages/phplusir/smsir)
-[![Total Downloads](https://poser.pugx.org/phplusir/smsir/downloads)](https://packagist.org/packages/phplusir/smsir)
-[![Monthly Downloads](https://poser.pugx.org/phplusir/smsir/d/monthly)](https://packagist.org/packages/phplusir/smsir)
-[![License](https://poser.pugx.org/phplusir/smsir/license)](https://packagist.org/packages/phplusir/smsir)
+[![Latest Stable Version](https://poser.pugx.org/ipecompany/smsirlaravel/v/stable)](https://packagist.org/packages/ipecompany/smsirlaravel)
+[![Total Downloads](https://poser.pugx.org/ipecompany/smsirlaravel/downloads)](https://packagist.org/packages/ipecompany/smsirlaravel)
+[![Monthly Downloads](https://poser.pugx.org/ipecompany/smsirlaravel/d/monthly)](https://packagist.org/packages/ipecompany/smsirlaravel)
+[![License](https://poser.pugx.org/ipecompany/smsirlaravel/license)](https://packagist.org/packages/ipecompany/smsirlaravel)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FTrueMoein%2Fsmsir.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FTrueMoein%2Fsmsir?ref=badge_shield)
 
 
@@ -21,16 +21,16 @@ Hi, if you have an account in sms.ir, you can use this package for laravel
 How to install:
 -------------
 
-    composer require phplusir/smsir
+    composer require ipecompany/smsirlaravel
     php artisan vendor:publish
 
 > **Setup:**
 
 add this line to your app.php providers:
-phplusir\smsir\SmsirServiceProvider::class,
+ipecompany\smsirlaravel\SmsirServiceProvider::class,
 
 and add this line to your app.php aliases:
-'Smsir' => phplusir\smsir\SmsirFacade::class,
+'Smsir' => ipecompany\smsirlaravel\SmsirFacade::class,
 
 
 > After publish the package files you must open smsir.php in config folder and set the api-key, secret-key and your sms line number.
@@ -38,6 +38,7 @@ and add this line to your app.php aliases:
 
 > **Like this:**
 
+	'webservice-url' => env('SMSIR-WEBSERVICE-URL','https://ws.sms.ir/'),
 	'api-key' => env('SMSIR-API-KEY','Your sms.ir api key'),
 	'secret-key' => env('SMSIR-SECRET-KEY','Your sms.ir secret key'),
 	'line-number' => env('SMSIR-LINE-NUMBER','Your sms.ir line number'
@@ -47,6 +48,8 @@ and add this line to your app.php aliases:
 you can set the keys and line number in your .env file
 
 > **like this:**
+
+> SMSIR-WEBSERVICE-URL=https://ws.sms.ir/
 
 > SMSIR-API-KEY=your api-key
 
@@ -59,9 +62,27 @@ you can set the keys and line number in your .env file
 Methods:
 -------------
 
-> Coming Soon
+> Smsir::send()
 
+> Smsir::credit()
 
+> Smsir::getLines()
+
+> Smsir::addToCustomerClub()
+
+> Smsir::deleteContact();
+
+> Smsir::sendToCustomerClub();
+
+> Smsir::addContactAndSend();
+
+> Smsir::sendVerification();
+
+> Smsir::ultraFastSend();
+
+> Smsir::getSentMessages();
+
+> Smsir::getReceivedMessages();
 
 ## License
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FTrueMoein%2Fsmsir.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FTrueMoein%2Fsmsir?ref=badge_large)
