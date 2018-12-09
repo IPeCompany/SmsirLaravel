@@ -9,6 +9,8 @@ return [
 	'middlewares' => ['web'],
 	// you can change default route from sms-admin to anything you want
 	'route' => 'sms-admin',
+	// SMS.ir Web Service URL
+	'webservice-url' => env('SMSIR-WEBSERVICE-URL','https://ws.sms.ir/'),
 	// SMS.ir Api Key
 	'api-key' => env('SMSIR-API-KEY','Your api key'),
 	// SMS.ir Secret Key
