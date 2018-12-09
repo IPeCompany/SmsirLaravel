@@ -1,10 +1,10 @@
 <?php
 
-namespace phplusir\smsir\Controllers;
+namespace ipecompany\smsirlaravel\Controllers;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Route;
-use phplusir\smsir\Smsir;
-use phplusir\smsir\SmsirLogs;
+use ipecompany\smsirlaravel\Smsir;
+use ipecompany\smsirlaravel\SmsirLogs;
 
 
 class SmsirController extends Controller
