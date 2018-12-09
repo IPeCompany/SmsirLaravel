@@ -14,16 +14,22 @@ class Smsir
 	 * @internal param bool $addToCustomerClub | set to true if you want to log another message instead main message
 	 */
 	public static function DBlog($result, $messages, $numbers) {
-
 		if(config('smsir.db-log')) {
-
+			if (!is_array($numbers)) {
+				$numbers = array($numbers);
+			}
 			$res = json_decode($result->getBody()->getContents(),true);
 
-			if(count($messages) === 1) {
+			if(count($messages) == 1) {
 				foreach ( $numbers as $number ) {
-					SmsirLogs::create( [
+					if (is_array($messages)) {
+						$msg = $messages[0];
+					} else {
+						$msg = $messages;
+					}
+					$log = SmsirLogs::create( [
 						'response' => $res['Message'],
-						'message'  => $messages[0],
+						'message'  => $msg,
 						'status'   => $res['IsSuccessful'],
 						'from'     => config('smsir.line-number'),
 						'to'       => $number,
@@ -52,7 +58,7 @@ class Smsir
 	{
 		$client     = new Client();
 		$body       = ['UserApiKey'=>config('smsir.api-key'),'SecretKey'=>config('smsir.secret-key'),'System'=>'laravel_v_1_4'];
-		$result     = $client->post('https://ws.sms.ir/api/Token',['json'=>$body,'connect_timeout'=>30]);
+		$result     = $client->post(config('smsir.webservice-url').'api/Token',['json'=>$body,'connect_timeout'=>30]);
 		return json_decode($result->getBody(),true)['TokenKey'];
 	}
 
@@ -64,7 +70,7 @@ class Smsir
 	public static function credit()
 	{
 		$client     = new Client();
-		$result     = $client->get('https://ws.sms.ir/api/credit',['headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
+		$result     = $client->get(config('smsir.webservice-url').'api/credit',['headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
 		return json_decode($result->getBody(),true)['Credit'];
 	}
 
@@ -76,7 +82,7 @@ class Smsir
 	public static function getLines()
 	{
 		$client     = new Client();
-		$result     = $client->get('https://ws.sms.ir/api/SMSLine',['headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
+		$result     = $client->get(config('smsir.webservice-url').'api/SMSLine',['headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
 		return json_decode($result->getBody(),true);
 	}
 
@@ -99,7 +105,7 @@ class Smsir
 		} else {
 			$body   = ['Messages'=>$messages,'MobileNumbers'=>$numbers,'LineNumber'=>config('smsir.line-number'),'SendDateTime'=>$sendDateTime];
 		}
-		$result     = $client->post('https://ws.sms.ir/api/MessageSend',['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
+		$result     = $client->post(config('smsir.webservice-url').'api/MessageSend',['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
 
 		self::DBlog($result,$messages,$numbers);
 
@@ -122,10 +128,10 @@ class Smsir
 	{
 		$client     = new Client();
 		$body       = ['Prefix'=>$prefix,'FirstName'=>$firstName,'LastName'=>$lastName,'Mobile'=>$mobile,'BirthDay'=>$birthDay,'CategoryId'=>$categotyId];
-		$result     = $client->post('https://ws.sms.ir/api/CustomerClubContact',['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
-		$res        = json_decode($result->getBody()->getContents(),true);
+		$result     = $client->post(config('smsir.webservice-url').'api/CustomerClubContact',['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
+		// $res        = json_decode($result->getBody()->getContents(),true);
 
-		self::DBlog($res,"افزودن $firstName $lastName به مخاطبین باشگاه ",$mobile);
+		self::DBlog($result,"افزودن $firstName $lastName به مخاطبین باشگاه ",$mobile);
 
 		return json_decode($result->getBody(),true);
 	}
@@ -150,7 +156,7 @@ class Smsir
 		} else {
 			$body   = ['Messages'=>$messages,'MobileNumbers'=>$numbers,'CanContinueInCaseOfError'=>$canContinueInCaseOfError];
 		}
-		$result     = $client->post('https://ws.sms.ir/api/CustomerClub/Send',['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
+		$result     = $client->post(config('smsir.webservice-url').'api/CustomerClub/Send',['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
 
 		self::DBlog($result,$messages,$numbers);
 
@@ -175,7 +181,7 @@ class Smsir
 	{
 		$client = new Client();
 		$body   = ['Prefix'=>$prefix,'FirstName'=>$firstName,'LastName'=>$lastName,'Mobile'=>$mobile,'BirthDay'=>$birthDay,'CategoryId'=>$categotyId,'MessageText'=>$message];
-		$result = $client->post('https://ws.sms.ir/api/CustomerClub/AddContactAndSend',['json'=>[$body],'headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
+		$result = $client->post(config('smsir.webservice-url').'api/CustomerClub/AddContactAndSend',['json'=>[$body],'headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
 
 		self::DBlog($result,$message,$mobile);
 
@@ -196,7 +202,7 @@ class Smsir
 	{
 		$client = new Client();
 		$body   = ['Code'=>$code,'MobileNumber'=>$number];
-		$result = $client->post('https://ws.sms.ir/api/VerificationCode',['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
+		$result = $client->post(config('smsir.webservice-url').'api/VerificationCode',['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
 		if($log) {
 			self::DBlog($result,$code,$number);
 		}
@@ -216,7 +222,7 @@ class Smsir
 		}
 		$client = new Client();
 		$body   = ['ParameterArray' => $params,'TemplateId' => $template_id,'Mobile' => $number];
-		$result = $client->post('https://ws.sms.ir/api/UltraFastSend',['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
+		$result = $client->post(config('smsir.webservice-url').'api/UltraFastSend',['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
 
 		return json_decode($result->getBody(),true);
 	}
@@ -234,7 +240,7 @@ class Smsir
 	public static function getReceivedMessages($perPage,$pageNumber,$formDate,$toDate)
 	{
 		$client = new Client();
-		$result = $client->get("https://ws.sms.ir/api/ReceiveMessage?Shamsi_FromDate={$formDate}&Shamsi_ToDate={$toDate}&RowsPerPage={$perPage}&RequestedPageNumber={$pageNumber}",['headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
+		$result = $client->get(config('smsir.webservice-url')."api/ReceiveMessage?Shamsi_FromDate={$formDate}&Shamsi_ToDate={$toDate}&RowsPerPage={$perPage}&RequestedPageNumber={$pageNumber}",['headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
 
 		return json_decode($result->getBody()->getContents())->Messages;
 	}
@@ -252,12 +258,12 @@ class Smsir
 	public static function getSentMessages($perPage,$pageNumber,$formDate,$toDate)
 	{
 		$client = new Client();
-		$result = $client->get("https://ws.sms.ir/api/MessageSend?Shamsi_FromDate={$formDate}&Shamsi_ToDate={$toDate}&RowsPerPage={$perPage}&RequestedPageNumber={$pageNumber}",['headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
+		$result = $client->get(config('smsir.webservice-url')."api/MessageSend?Shamsi_FromDate={$formDate}&Shamsi_ToDate={$toDate}&RowsPerPage={$perPage}&RequestedPageNumber={$pageNumber}",['headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
 
 		return json_decode($result->getBody()->getContents())->Messages;
 	}
 
-
+	
 	/**
 	 * @param $mobile = The mobile number of that user who you wanna to delete it
 	 *
@@ -266,7 +272,7 @@ class Smsir
 	public static function deleteContact($mobile) {
 		$client = new Client();
 		$body   = ['Mobile' => $mobile, 'CanContinueInCaseOfError' => false];
-		$result = $client->post('https://ws.sms.ir/api/UltraFastSend',['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
+		$result = $client->post(config('smsir.webservice-url').'api/CustomerClub/DeleteContactCustomerClub',['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
 
 		return json_decode($result->getBody(),true);
 	}
