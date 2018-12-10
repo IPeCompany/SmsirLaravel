@@ -2,9 +2,9 @@
 namespace ipecompany\smsirlaravel;
 use Illuminate\Support\Facades\Facade;
 
-class SmsirFacade extends Facade
+class SmsirlaravelFacade extends Facade
 {
 	protected static function getFacadeAccessor() {
-		return 'smsir';
+		return 'smsirlaravel';
 	}
 }
