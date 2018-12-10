@@ -51,12 +51,12 @@ class SmsirlaravelServiceProvider extends ServiceProvider
     {
     	// set the main config file
 	    $this->mergeConfigFrom(
-		    __DIR__.'/config/smsir.php', 'smsir'
+		    __DIR__.'/config/smsirlaravel.php', 'smsirlaravel'
 	    );
 
-		// bind the Smsir Facade
-	    $this->app->bind('Smsir', function () {
-		    return new Smsir;
+		// bind the Smsirlaravel Facade
+	    $this->app->bind('Smsirlaravel', function () {
+		    return new Smsirlaravel;
 	    });
     }
 }
