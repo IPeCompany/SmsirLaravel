@@ -27,10 +27,10 @@ How to install:
 > **Setup:**
 
 add this line to your app.php providers:
-ipecompany\smsirlaravel\SmsirServiceProvider::class,
+ipecompany\smsirlaravel\SmsirlaravelServiceProvider::class,
 
 and add this line to your app.php aliases:
-'Smsirlaravel' => ipecompany\smsirlaravel\SmsirFacade::class,
+'Smsirlaravel' => ipecompany\smsirlaravel\SmsirlaravelFacade::class,
 
 
 > After publish the package files you must open smsirlaravel.php in config folder and set the api-key, secret-key and your sms line number.
