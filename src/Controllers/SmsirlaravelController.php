@@ -4,7 +4,7 @@ namespace ipecompany\smsirlaravel\Controllers;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Route;
 use ipecompany\smsirlaravel\Smsirlaravel;
-use ipecompany\smsirlaravel\SmsirLogs;
+use ipecompany\smsirlaravel\SmsirlaravelLogs;
 
 
 class SmsirlaravelController extends Controller
