@@ -4,7 +4,7 @@ namespace ipecompany\smsirlaravel;
 
 use Illuminate\Support\ServiceProvider;
 
-class SmsirServiceProvider extends ServiceProvider
+class SmsirlaravelServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -14,17 +14,17 @@ class SmsirServiceProvider extends ServiceProvider
 
     public function boot()
     {
-    	if (config('smsir.panel-routes', true)) {
+    	if (config('smsirlaravel.panel-routes', true)) {
             // the main router
             include_once __DIR__.'/routes.php';
         }
 	    // the main views folder
-	    $this->loadViewsFrom(__DIR__.'/views', 'smsir');
-	    // the main migration folder for create smsir tables
+	    $this->loadViewsFrom(__DIR__.'/views', 'smsirlaravel');
+	    // the main migration folder for create smsirlaravel tables
 
 	    // for publish the views into main app
 	    $this->publishes([
-		    __DIR__.'/views' => resource_path('views/vendor/smsir'),
+		    __DIR__.'/views' => resource_path('views/vendor/smsirlaravel'),
 	    ]);
 
 	    $this->publishes([
@@ -33,12 +33,12 @@ class SmsirServiceProvider extends ServiceProvider
 
 	    // for publish the assets files into main app
 	    $this->publishes([
-		    __DIR__.'/assets' => public_path('vendor/smsir'),
+		    __DIR__.'/assets' => public_path('vendor/smsirlaravel'),
 	    ], 'public');
 
-	    // for publish the smsir config file to the main app config folder
+	    // for publish the smsirlaravel config file to the main app config folder
 	    $this->publishes([
-		    __DIR__.'/config/smsir.php' => config_path('smsir.php'),
+		    __DIR__.'/config/smsirlaravel.php' => config_path('smsirlaravel.php'),
 	    ]);
     }
 
