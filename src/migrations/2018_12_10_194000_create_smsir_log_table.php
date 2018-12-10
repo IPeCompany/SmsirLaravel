@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSmsirLogTable extends Migration
+class CreateSmsirlaravelLogTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSmsirLogTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('smsir_logs', function (Blueprint $table) {
+		Schema::create('smsirlaravel_logs', function (Blueprint $table) {
 			$table->increments('id');
 			$table->string('from',100)->nullable();
 			$table->string('to',100)->nullable();
@@ -31,6 +31,6 @@ class CreateSmsirLogTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('smsir_logs');
+		Schema::dropIfExists('smsirlaravel_logs');
 	}
 }
