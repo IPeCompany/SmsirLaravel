@@ -3,10 +3,10 @@
 namespace IPeCompany\SmsirLaravel;
 use GuzzleHttp\Client;
 
-class Smsir
+class Smsirlaravel
 {
 	/**
-	 * This method used for log the messages to the database if db-log set to true (@ smsir.php in config folder).
+	 * This method used for log the messages to the database if db-log set to true (@ smsirlaravel.php in config folder).
 	 *
 	 * @param $result
 	 * @param $messages
@@ -14,7 +14,7 @@ class Smsir
 	 * @internal param bool $addToCustomerClub | set to true if you want to log another message instead main message
 	 */
 	public static function DBlog($result, $messages, $numbers) {
-		if(config('smsir.db-log')) {
+		if(config('smsirlaravel.db-log')) {
 			if (!is_array($numbers)) {
 				$numbers = array($numbers);
 			}
@@ -27,21 +27,21 @@ class Smsir
 					} else {
 						$msg = $messages;
 					}
-					$log = SmsirLogs::create( [
+					$log = SmsirlaravelLogs::create( [
 						'response' => $res['Message'],
 						'message'  => $msg,
 						'status'   => $res['IsSuccessful'],
-						'from'     => config('smsir.line-number'),
+						'from'     => config('smsirlaravel.line-number'),
 						'to'       => $number,
 					]);
 				}
 			} else {
 				foreach ( array_combine( $messages, $numbers ) as $message => $number ) {
-					SmsirLogs::create( [
+					SmsirlaravelLogs::create( [
 						'response' => $res['Message'],
 						'message'  => $message,
 						'status'   => $res['IsSuccessful'],
-						'from'     => config('smsir.line-number'),
+						'from'     => config('smsirlaravel.line-number'),
 						'to'       => $number,
 					]);
 				}
@@ -57,8 +57,8 @@ class Smsir
 	public static function getToken()
 	{
 		$client     = new Client();
-		$body       = ['UserApiKey'=>config('smsir.api-key'),'SecretKey'=>config('smsir.secret-key'),'System'=>'laravel_v_1_4'];
-		$result     = $client->post(config('smsir.webservice-url').'api/Token',['json'=>$body,'connect_timeout'=>30]);
+		$body       = ['UserApiKey'=>config('smsirlaravel.api-key'),'SecretKey'=>config('smsirlaravel.secret-key'),'System'=>'laravel_v_1_4'];
+		$result     = $client->post(config('smsirlaravel.webservice-url').'api/Token',['json'=>$body,'connect_timeout'=>30]);
 		return json_decode($result->getBody(),true)['TokenKey'];
 	}
 
@@ -70,7 +70,7 @@ class Smsir
 	public static function credit()
 	{
 		$client     = new Client();
-		$result     = $client->get(config('smsir.webservice-url').'api/credit',['headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
+		$result     = $client->get(config('smsirlaravel.webservice-url').'api/credit',['headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
 		return json_decode($result->getBody(),true)['Credit'];
 	}
 
@@ -82,7 +82,7 @@ class Smsir
 	public static function getLines()
 	{
 		$client     = new Client();
-		$result     = $client->get(config('smsir.webservice-url').'api/SMSLine',['headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
+		$result     = $client->get(config('smsirlaravel.webservice-url').'api/SMSLine',['headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
 		return json_decode($result->getBody(),true);
 	}
 
@@ -101,11 +101,11 @@ class Smsir
 		$messages = (array)$messages;
 		$numbers = (array)$numbers;
 		if($sendDateTime === null) {
-			$body   = ['Messages'=>$messages,'MobileNumbers'=>$numbers,'LineNumber'=>config('smsir.line-number')];
+			$body   = ['Messages'=>$messages,'MobileNumbers'=>$numbers,'LineNumber'=>config('smsirlaravel.line-number')];
 		} else {
-			$body   = ['Messages'=>$messages,'MobileNumbers'=>$numbers,'LineNumber'=>config('smsir.line-number'),'SendDateTime'=>$sendDateTime];
+			$body   = ['Messages'=>$messages,'MobileNumbers'=>$numbers,'LineNumber'=>config('smsirlaravel.line-number'),'SendDateTime'=>$sendDateTime];
 		}
-		$result     = $client->post(config('smsir.webservice-url').'api/MessageSend',['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
+		$result     = $client->post(config('smsirlaravel.webservice-url').'api/MessageSend',['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
 
 		self::DBlog($result,$messages,$numbers);
 
@@ -128,7 +128,7 @@ class Smsir
 	{
 		$client     = new Client();
 		$body       = ['Prefix'=>$prefix,'FirstName'=>$firstName,'LastName'=>$lastName,'Mobile'=>$mobile,'BirthDay'=>$birthDay,'CategoryId'=>$categotyId];
-		$result     = $client->post(config('smsir.webservice-url').'api/CustomerClubContact',['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
+		$result     = $client->post(config('smsirlaravel.webservice-url').'api/CustomerClubContact',['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
 		// $res        = json_decode($result->getBody()->getContents(),true);
 
 		self::DBlog($result,"افزودن $firstName $lastName به مخاطبین باشگاه ",$mobile);
@@ -156,7 +156,7 @@ class Smsir
 		} else {
 			$body   = ['Messages'=>$messages,'MobileNumbers'=>$numbers,'CanContinueInCaseOfError'=>$canContinueInCaseOfError];
 		}
-		$result     = $client->post(config('smsir.webservice-url').'api/CustomerClub/Send',['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
+		$result     = $client->post(config('smsirlaravel.webservice-url').'api/CustomerClub/Send',['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
 
 		self::DBlog($result,$messages,$numbers);
 
@@ -181,7 +181,7 @@ class Smsir
 	{
 		$client = new Client();
 		$body   = ['Prefix'=>$prefix,'FirstName'=>$firstName,'LastName'=>$lastName,'Mobile'=>$mobile,'BirthDay'=>$birthDay,'CategoryId'=>$categotyId,'MessageText'=>$message];
-		$result = $client->post(config('smsir.webservice-url').'api/CustomerClub/AddContactAndSend',['json'=>[$body],'headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
+		$result = $client->post(config('smsirlaravel.webservice-url').'api/CustomerClub/AddContactAndSend',['json'=>[$body],'headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
 
 		self::DBlog($result,$message,$mobile);
 
@@ -202,7 +202,7 @@ class Smsir
 	{
 		$client = new Client();
 		$body   = ['Code'=>$code,'MobileNumber'=>$number];
-		$result = $client->post(config('smsir.webservice-url').'api/VerificationCode',['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
+		$result = $client->post(config('smsirlaravel.webservice-url').'api/VerificationCode',['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
 		if($log) {
 			self::DBlog($result,$code,$number);
 		}
@@ -222,7 +222,7 @@ class Smsir
 		}
 		$client = new Client();
 		$body   = ['ParameterArray' => $params,'TemplateId' => $template_id,'Mobile' => $number];
-		$result = $client->post(config('smsir.webservice-url').'api/UltraFastSend',['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
+		$result = $client->post(config('smsirlaravel.webservice-url').'api/UltraFastSend',['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
 
 		return json_decode($result->getBody(),true);
 	}
@@ -240,7 +240,7 @@ class Smsir
 	public static function getReceivedMessages($perPage,$pageNumber,$formDate,$toDate)
 	{
 		$client = new Client();
-		$result = $client->get(config('smsir.webservice-url')."api/ReceiveMessage?Shamsi_FromDate={$formDate}&Shamsi_ToDate={$toDate}&RowsPerPage={$perPage}&RequestedPageNumber={$pageNumber}",['headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
+		$result = $client->get(config('smsirlaravel.webservice-url')."api/ReceiveMessage?Shamsi_FromDate={$formDate}&Shamsi_ToDate={$toDate}&RowsPerPage={$perPage}&RequestedPageNumber={$pageNumber}",['headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
 
 		return json_decode($result->getBody()->getContents())->Messages;
 	}
@@ -258,7 +258,7 @@ class Smsir
 	public static function getSentMessages($perPage,$pageNumber,$formDate,$toDate)
 	{
 		$client = new Client();
-		$result = $client->get(config('smsir.webservice-url')."api/MessageSend?Shamsi_FromDate={$formDate}&Shamsi_ToDate={$toDate}&RowsPerPage={$perPage}&RequestedPageNumber={$pageNumber}",['headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
+		$result = $client->get(config('smsirlaravel.webservice-url')."api/MessageSend?Shamsi_FromDate={$formDate}&Shamsi_ToDate={$toDate}&RowsPerPage={$perPage}&RequestedPageNumber={$pageNumber}",['headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
 
 		return json_decode($result->getBody()->getContents())->Messages;
 	}
@@ -272,7 +272,7 @@ class Smsir
 	public static function deleteContact($mobile) {
 		$client = new Client();
 		$body   = ['Mobile' => $mobile, 'CanContinueInCaseOfError' => false];
-		$result = $client->post(config('smsir.webservice-url').'api/CustomerClub/DeleteContactCustomerClub',['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
+		$result = $client->post(config('smsirlaravel.webservice-url').'api/CustomerClub/DeleteContactCustomerClub',['json'=>$body,'headers'=>['x-sms-ir-secure-token'=>self::getToken()],'connect_timeout'=>30]);
 
 		return json_decode($result->getBody(),true);
 	}
