@@ -4,10 +4,10 @@ namespace ipecompany\smsirlaravel;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SmsirLogs extends Model
+class SmsirlaravelLogs extends Model
 {
 	protected $guarded = [];
-	protected $table = 'smsir_logs';
+	protected $table = 'smsirlaravel_logs';
 
 	public function sendStatus() {
 		if($this->status){
