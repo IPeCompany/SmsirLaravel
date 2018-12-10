@@ -8,17 +8,17 @@
     <!-- This page only for admins and no need to index in search engines -->
     <meta name="robots" content="noindex">
 
-    <link rel="stylesheet" href="{{asset('vendor/smsir/css/smsir-bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('vendor/smsir/css/smsir-rtl.min.css')}}">
-    <link rel="stylesheet" href="{{asset('vendor/smsir/css/style.css')}}">
-    <title>{{config('smsir.title')}}</title>
+    <link rel="stylesheet" href="{{asset('vendor/smsirlaravel/css/smsirlaravel-bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/smsirlaravel/css/smsirlaravel-rtl.min.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/smsirlaravel/css/style.css')}}">
+    <title>{{config('smsirlaravel.title')}}</title>
 </head>
 <body class="smsir-panel">
     <header>
         <div class="topbar container">
             <div class="row">
                 <div class="top-title text-center">
-                    <h2>{{config('smsir.title')}}</h2><br>
+                    <h2>{{config('smsirlaravel.title')}}</h2><br>
                     <h5>موجودی: {{$credit}} پیامک </h5>
                 </div>
             </div>
@@ -50,7 +50,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($smsir_logs as $log)
+                            @foreach($smsirlaravel_logs as $log)
                                 <tr>
                                     <td align="center">
                                         <a onclick="return confirm('حذف شود؟')" href="{{route('deleteLog',['log'=>$log])}}" class="btn btn-danger"><em class="fa fa-trash"></em></a>
@@ -69,7 +69,7 @@
                     </div>
                     <div class="panel-footer">
                         <div class="row">
-                            {{ $smsir_logs->links() }}
+                            {{ $smsirlaravel_logs->links() }}
                         </div>
                     </div>
                 </div>
