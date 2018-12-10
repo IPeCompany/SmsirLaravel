@@ -30,10 +30,10 @@ add this line to your app.php providers:
 ipecompany\smsirlaravel\SmsirServiceProvider::class,
 
 and add this line to your app.php aliases:
-'Smsir' => ipecompany\smsirlaravel\SmsirFacade::class,
+'Smsirlaravel' => ipecompany\smsirlaravel\SmsirFacade::class,
 
 
-> After publish the package files you must open smsir.php in config folder and set the api-key, secret-key and your sms line number.
+> After publish the package files you must open smsirlaravel.php in config folder and set the api-key, secret-key and your sms line number.
 > 
 
 > **Like this:**
