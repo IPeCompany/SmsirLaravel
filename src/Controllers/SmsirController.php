@@ -3,23 +3,23 @@
 namespace ipecompany\smsirlaravel\Controllers;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Route;
-use ipecompany\smsirlaravel\Smsir;
+use ipecompany\smsirlaravel\Smsirlaravel;
 use ipecompany\smsirlaravel\SmsirLogs;
 
 
-class SmsirController extends Controller
+class SmsirlaravelController extends Controller
 {
 
 	// the main index page for administrators
 	public function index() {
-		$credit = Smsir::credit();
-		$smsir_logs = SmsirLogs::orderBy('id','DESC')->paginate(config('smsir.in-page'));
-		return view('smsir::index',compact('credit','smsir_logs'));
+		$credit = Smsirlaravel::credit();
+		$smsirlaravel_logs = SmsirlaravelLogs::orderBy('id','DESC')->paginate(config('smsirlaravel.in-page'));
+		return view('smsirlaravel::index',compact('credit','smsirlaravel_logs'));
 	}
 
 	// administrators can delete single log
 	public function delete() {
-		SmsirLogs::where('id',Route::current()->parameters['log'])->delete();
+		SmsirlaravelLogs::where('id',Route::current()->parameters['log'])->delete();
 		// return the user back to sms-admin after delete the log
 		return back();
 	}
