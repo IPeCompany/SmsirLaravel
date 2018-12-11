@@ -1,5 +1,5 @@
 <?php
-namespace Ipecompany\Smsirlaravel;
+namespace ipecompany\smsirlaravel;
 use Illuminate\Support\Facades\Facade;
 
 class SmsirlaravelFacade extends Facade
