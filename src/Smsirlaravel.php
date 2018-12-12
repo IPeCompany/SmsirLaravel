@@ -1,6 +1,6 @@
 <?php
 
-namespace ipecompany\smsirlaravel;
+namespace Ipecompany\Smsirlaravel;
 use GuzzleHttp\Client;
 
 class Smsirlaravel
