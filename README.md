@@ -6,7 +6,7 @@
 [![Total Downloads](https://poser.pugx.org/ipecompany/smsirlaravel/downloads)](https://packagist.org/packages/ipecompany/smsirlaravel)
 [![Monthly Downloads](https://poser.pugx.org/ipecompany/smsirlaravel/d/monthly)](https://packagist.org/packages/ipecompany/smsirlaravel)
 [![License](https://poser.pugx.org/ipecompany/smsirlaravel/license)](https://packagist.org/packages/ipecompany/smsirlaravel)
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FTrueMoein%2Fsmsir.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FTrueMoein%2Fsmsir?ref=badge_shield)
+
 
 
 <a align="center" href="https://www.sms.ir/%D8%AE%D8%AF%D9%85%D8%A7%D8%AA/%D9%88%D8%A8-%D8%B3%D8%B1%D9%88%DB%8C%D8%B3/%D8%A7%D8%B1%D8%B3%D8%A7%D9%84-%D9%BE%DB%8C%D8%A7%D9%85%DA%A9-laravel/">آموزش فارسی نصب و استفاده از پکیج ارسال پیامک لاراول</a>
@@ -84,5 +84,3 @@ Methods:
 
 > Smsir::getReceivedMessages();
 
-## License
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FTrueMoein%2Fsmsir.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FTrueMoein%2Fsmsir?ref=badge_large)
