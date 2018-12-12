@@ -23,6 +23,7 @@ How to install:
 
     composer require ipecompany/smsirlaravel
     php artisan vendor:publish
+    php artisan migrate
 
 > **Setup:**
 
@@ -62,25 +63,25 @@ you can set the keys and line number in your .env file
 Methods:
 -------------
 
-> Smsir::send()
+> Smsirlaravel::send()
 
-> Smsir::credit()
+> Smsirlaravel::credit()
 
-> Smsir::getLines()
+> Smsirlaravel::getLines()
 
-> Smsir::addToCustomerClub()
+> Smsirlaravel::addToCustomerClub()
 
-> Smsir::deleteContact();
+> Smsirlaravel::deleteContact();
 
-> Smsir::sendToCustomerClub();
+> Smsirlaravel::sendToCustomerClub();
 
-> Smsir::addContactAndSend();
+> Smsirlaravel::addContactAndSend();
 
-> Smsir::sendVerification();
+> Smsirlaravel::sendVerification();
 
-> Smsir::ultraFastSend();
+> Smsirlaravel::ultraFastSend();
 
-> Smsir::getSentMessages();
+> Smsirlaravel::getSentMessages();
 
-> Smsir::getReceivedMessages();
+> Smsirlaravel::getReceivedMessages();
 
