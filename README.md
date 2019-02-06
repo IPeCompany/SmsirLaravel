@@ -26,6 +26,7 @@ How to install:
     php artisan migrate
 
 > **Setup:**
+skip this step if you use laravel 5.5 and above [more information](https://laravel.com/docs/master/packages#package-discovery)
 
 add this line to your app.php providers:
 ipecompany\smsirlaravel\SmsirlaravelServiceProvider::class,
