@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 
 class SmsirlaravelServiceProvider extends ServiceProvider
 {
+
+    protected $defer = true;
     /**
      * Bootstrap the application services.
      *
@@ -58,5 +60,10 @@ class SmsirlaravelServiceProvider extends ServiceProvider
 	    $this->app->bind('Smsirlaravel', function () {
 		    return new Smsirlaravel;
 	    });
+    }
+
+    public function provides()
+    {
+        return ['Smsirlaravel'];
     }
 }
