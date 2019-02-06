@@ -18,5 +18,15 @@
         "guzzlehttp/guzzle": "~6.0",
         "zendframework/zend-diactoros" : "1.*.*",
         "symfony/psr-http-message-bridge" : "1.*.*"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ipecompany\\Smsirlaravel\\SmsirlaravelServiceProvider"
+            ],
+            "aliases": {
+                "Smsirlaravel": "Ipecompany\\Smsirlaravel\\SmsirlaravelFacade"
+            }
+        }
     }
 }
