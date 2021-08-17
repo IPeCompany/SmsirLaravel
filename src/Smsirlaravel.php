@@ -1,7 +1,9 @@
 <?php
 
 namespace Ipecompany\Smsirlaravel;
+
 use GuzzleHttp\Client;
+use Ipecompany\Smsirlaravel\models\SmsirlaravelLogs;
 
 class Smsirlaravel
 {
