@@ -283,7 +283,6 @@ class Smsirlaravel
         return json_decode($result->getBody()->getContents())->Messages;
     }
 
-
     /**
      * @param $mobile = The mobile number of that user who you wanna to delete it
      *
@@ -299,13 +298,13 @@ class Smsirlaravel
     }
 
     /**
-     * @param $id = The message bulk id
+     * @param $bulk = The message bulk id
      * @return mixed
      */
-    public static function getSentMessage($id)
+    public static function getSentMessage($bulk)
     {
         $client = new Client();
-        $result = $client->get(config('smsirlaravel.webservice-url') . "api/MessageSend?id={$id}", ['headers' => ['x-sms-ir-secure-token' => self::getToken()], 'connect_timeout' => 30]);
+        $result = $client->get(config('smsirlaravel.webservice-url') . "api/MessageSend?id={$bulk}", ['headers' => ['x-sms-ir-secure-token' => self::getToken()], 'connect_timeout' => 30]);
 
         return json_decode($result->getBody()->getContents())->Messages;
     }

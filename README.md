@@ -7,45 +7,52 @@
 [![Monthly Downloads](https://poser.pugx.org/ipecompany/smsirlaravel/d/monthly)](https://packagist.org/packages/ipecompany/smsirlaravel)
 [![License](https://poser.pugx.org/ipecompany/smsirlaravel/license)](https://packagist.org/packages/ipecompany/smsirlaravel)
 
-
-
-
 Hi, if you have an account in sms.ir, you can use this package for laravel
 
-----------
+<hr />
 
+## 1. Install
+```shell
+composer require jalallinux/smsirlaravel
+```
 
-How to install:
--------------
+<hr />
 
-    composer require jalallinux/smsirlaravel
-    php artisan vendor:publish
-    php artisan migrate
+## 2. Publish vendor
+```shell
+php artisan vendor:publish
+```
+then select `jalallinux\Smsirlaravel\SmsirlaravelServiceProvider`
 
-> **Setup:**
+<hr />
 
-add this line to your app.php providers:
-jalallinux\smsirlaravel\SmsirlaravelServiceProvider::class,
+* If using laravel 5.4 or below must register provider and alias in your `config/app.php`:
+> Providers: jalallinux\smsirlaravel\SmsirlaravelServiceProvider::class,
 
-and add this line to your app.php aliases:
-'Smsirlaravel' => jalallinux\smsirlaravel\SmsirlaravelFacade::class,
+> Aliases: 'Smsirlaravel' => jalallinux\smsirlaravel\SmsirlaravelFacade::class,
 
+<hr />
 
-> After publish the package files you must open smsirlaravel.php in config folder and set the api-key, secret-key and your sms line number.
-> 
+## 3. Migrate table
+```shell
+php artisan migrate
+```
 
-> **Like this:**
+<hr />
 
-	'webservice-url' => env('SMSIR_WEBSERVICE_URL','https://ws.sms.ir/'),
-	'api-key' => env('SMSIR_API_KEY','Your sms.ir api key'),
-	'secret-key' => env('SMSIR_SECRET_KEY','Your sms.ir secret key'),
-	'line-number' => env('SMSIR_LINE_NUMBER','Your sms.ir line number'
-> 
-> Note:
+## 4. Configuration package
+After publish the package files you must open `config/smsirlaravel.php` set the keys.
+```php
+'webservice-url' => env('SMSIR_WEBSERVICE_URL','https://ws.sms.ir/'),
 
-you can set the keys and line number in your .env file
+'api-key' => env('SMSIR_API_KEY','Your sms.ir api key'),
 
-> **like this:**
+'secret-key' => env('SMSIR_SECRET_KEY','Your sms.ir secret key'),
+
+'line-number' => env('SMSIR_LINE_NUMBER','Your sms.ir line number'
+```
+
+or you can set your key in `.env` file:
 
 > SMSIR_WEBSERVICE_URL=https://ws.sms.ir/
 
@@ -56,31 +63,54 @@ you can set the keys and line number in your .env file
 > SMSIR_LINE_NUMBER=1000465******
 
 
-
-Methods:
+Available Methods:
 -------------
+- Sending Message:
+```php
+Smsirlaravel::send($messages, $numbers, $sendDateTime = null);
 
-> Smsirlaravel::send()
+Smsirlaravel::sendVerification($code, $number, $log = false);
 
-> Smsirlaravel::credit()
+Smsirlaravel::ultraFastSend(array $parameters, $template_id, $number);
+```
 
-> Smsirlaravel::getLines()
+<hr />
 
-> Smsirlaravel::addToCustomerClub()
+- Panel Details:
+```php
+Smsirlaravel::credit();
 
-> Smsirlaravel::deleteContact();
+Smsirlaravel::getLines();
+```
 
-> Smsirlaravel::sendToCustomerClub();
+<hr />
 
-> Smsirlaravel::addContactAndSend();
+- Customer Club:
+```php
+Smsirlaravel::addToCustomerClub($prefix, $firstName, $lastName, $mobile, $birthDay = '', $categotyId = '')
 
-> Smsirlaravel::sendVerification();
+Smsirlaravel::sendToCustomerClub($messages, $numbers, $sendDateTime = null, $canContinueInCaseOfError = true);
+```
 
-> Smsirlaravel::ultraFastSend();
+<hr />
 
-> Smsirlaravel::getSentMessages();
+- Contact Management:
+```php
+Smsirlaravel::deleteContact($mobile);
 
-> Smsirlaravel::getSentMessage();
+Smsirlaravel::addContactAndSend($prefix, $firstName, $lastName, $mobile, $message, $birthDay = '', $categotyId = '');
+```
 
-> Smsirlaravel::getReceivedMessages();
+<hr />
 
+- Message Report:
+```php
+Smsirlaravel::getReceivedMessages($perPage, $pageNumber, $formDate, $toDate);
+
+Smsirlaravel::getSentMessages($perPage, $pageNumber, $formDate, $toDate);
+
+Smsirlaravel::getSentMessage($bulk);
+```
+
+
+<p align="center"><a href="https://jalallinux.ir">JalalLinuX</a></p>
