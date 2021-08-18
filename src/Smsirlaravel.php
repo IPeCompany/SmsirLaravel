@@ -57,7 +57,7 @@ class Smsirlaravel
                     }, $bulks);
                     SmsirlaravelLogs::create([
                         'response' => $res['Message'],
-                        'message' => $msg,
+                        'message' => $message,
                         'status' => $res['IsSuccessful'],
                         'from' => config('smsirlaravel.line-number'),
                         'to' => $number,
