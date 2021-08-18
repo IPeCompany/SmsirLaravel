@@ -1,6 +1,6 @@
 <?php
 
-namespace Ipecompany\Smsirlaravel;
+namespace jalallinux\Smsirlaravel;
 
 use Illuminate\Support\ServiceProvider;
 
