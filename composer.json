@@ -25,10 +25,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Ipecompany\\Smsirlaravel\\SmsirlaravelServiceProvider"
+                "jalallinux\\Smsirlaravel\\SmsirlaravelServiceProvider"
             ],
             "aliases": {
-                "Smsirlaravel": "Ipecompany\\Smsirlaravel\\SmsirlaravelFacade"
+                "Smsirlaravel": "jalallinux\\Smsirlaravel\\SmsirlaravelFacade"
             }
         }
     }
