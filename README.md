@@ -1,4 +1,4 @@
-<p align="center"><img src="https://www.sms.ir/wp-content/themes/sms.ir/assets/img/final-sms-logo.png"></p>
+<p align="center"><img src="https://sms.ir/wp-content/uploads/2020/04/smsir-logo.png"></p>
 
 <p align="center">Official Laravel Package for sms.ir</p>
 
