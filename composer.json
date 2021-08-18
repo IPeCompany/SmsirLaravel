@@ -1,17 +1,21 @@
 {
-    "name": "Ipecompany/Smsirlaravel",
-    "description": "Official Sms.ir Laravel Package",
+    "name": "jalallinux/smsirlaravel",
+    "description": "Boosted Official Sms.ir Laravel Package",
     "keywords": ["laravel", "sms", "پیامک", "اس ام اس", "sendsms", "notifacation", "sms.ir"],
     "license": "MIT",
     "authors": [
         {
             "name": "moein.alizadeh",
             "email": "moein.alizade@gmail.com"
+        },
+        {
+            "name": "JalalLinuX",
+            "email": "smjjalalzadeh93@gmail.com"
         }
     ],
     "autoload": {
         "psr-4": {
-            "Ipecompany\\Smsirlaravel\\": "src"
+            "jalallinux\\Smsirlaravel\\": "src"
         }
     },
     "require": {
