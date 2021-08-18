@@ -25,40 +25,44 @@ class Smsirlaravel
 
             if (count($messages) == 1) {
                 foreach ($numbers as $number) {
+                    $number = substr($number, -10, 10);
                     if (is_array($messages)) {
                         $msg = $messages[0];
                     } else {
                         $msg = $messages;
                     }
-                    $bulks = array_filter($res['Ids'], function ($ID) use ($number) {
-                        return $ID['MobileNo'] == substr($number, -10, 10);
+                    $bulksRes = array_filter($res['Ids'], function ($item) use ($number) {
+                        return $item['MobileNo'] == $number;
                     });
-                    foreach ($bulks as $bulk) {
-                        SmsirlaravelLogs::create([
-                            'response' => $res['Message'],
-                            'message' => $msg,
-                            'status' => $res['IsSuccessful'],
-                            'from' => config('smsirlaravel.line-number'),
-                            'to' => $number,
-                            'bulk' => $bulk['ID']
-                        ]);
+                    foreach ($bulksRes as $item) {
+                        $bulks[substr($item['MobileNo'], -10, 10)] = $item['ID'];
                     }
+                    SmsirlaravelLogs::create([
+                        'response' => $res['Message'],
+                        'message' => $msg,
+                        'status' => $res['IsSuccessful'],
+                        'from' => config('smsirlaravel.line-number'),
+                        'to' => $number,
+                        'bulk' => $bulks[$number]
+                    ]);
                 }
             } else {
                 foreach (array_combine($messages, $numbers) as $message => $number) {
+                    $number = substr($number, -10, 10);
                     $bulks = array_filter($res['Ids'], function ($ID) use ($number) {
-                        return $ID['MobileNo'] == substr($number, -10, 10);
+                        return $ID['MobileNo'] == $number;
                     });
-                    foreach ($bulks as $bulk) {
-                        SmsirlaravelLogs::create([
-                            'response' => $res['Message'],
-                            'message' => $message,
-                            'status' => $res['IsSuccessful'],
-                            'from' => config('smsirlaravel.line-number'),
-                            'to' => $number,
-                            'bulk' => $bulk['ID']
-                        ]);
-                    }
+                    $bulks = array_map(function ($item) {
+                        return [substr($item['MobileNo'], -10, 10) => $item['ID']];
+                    }, $bulks);
+                    SmsirlaravelLogs::create([
+                        'response' => $res['Message'],
+                        'message' => $msg,
+                        'status' => $res['IsSuccessful'],
+                        'from' => config('smsirlaravel.line-number'),
+                        'to' => $number,
+                        'bulk' => $bulks[$number]
+                    ]);
                 }
             }
         }
