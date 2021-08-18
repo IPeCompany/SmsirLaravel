@@ -30,23 +30,35 @@ class Smsirlaravel
                     } else {
                         $msg = $messages;
                     }
-                    $log = SmsirlaravelLogs::create([
-                        'response' => $res['Message'],
-                        'message' => $msg,
-                        'status' => $res['IsSuccessful'],
-                        'from' => config('smsirlaravel.line-number'),
-                        'to' => $number,
-                    ]);
+                    $bulks = array_filter($res['Ids'], function ($ID) use ($number) {
+                        return $ID['MobileNo'] == substr($number, -10, 10);
+                    });
+                    foreach ($bulks as $bulk) {
+                        SmsirlaravelLogs::create([
+                            'response' => $res['Message'],
+                            'message' => $msg,
+                            'status' => $res['IsSuccessful'],
+                            'from' => config('smsirlaravel.line-number'),
+                            'to' => $number,
+                            'bulk' => $bulk['ID']
+                        ]);
+                    }
                 }
             } else {
                 foreach (array_combine($messages, $numbers) as $message => $number) {
-                    SmsirlaravelLogs::create([
-                        'response' => $res['Message'],
-                        'message' => $message,
-                        'status' => $res['IsSuccessful'],
-                        'from' => config('smsirlaravel.line-number'),
-                        'to' => $number,
-                    ]);
+                    $bulks = array_filter($res['Ids'], function ($ID) use ($number) {
+                        return $ID['MobileNo'] == substr($number, -10, 10);
+                    });
+                    foreach ($bulks as $bulk) {
+                        SmsirlaravelLogs::create([
+                            'response' => $res['Message'],
+                            'message' => $message,
+                            'status' => $res['IsSuccessful'],
+                            'from' => config('smsirlaravel.line-number'),
+                            'to' => $number,
+                            'bulk' => $bulk['ID']
+                        ]);
+                    }
                 }
             }
         }
@@ -293,5 +305,4 @@ class Smsirlaravel
 
         return json_decode($result->getBody()->getContents())->Messages;
     }
-
 }

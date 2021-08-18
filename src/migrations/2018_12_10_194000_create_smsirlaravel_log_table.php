@@ -15,6 +15,7 @@ class CreateSmsirlaravelLogTable extends Migration
 	{
 		Schema::create('smsirlaravel_logs', function (Blueprint $table) {
 			$table->increments('id');
+			$table->string('bulk');
 			$table->string('from',100)->nullable();
 			$table->string('to',100)->nullable();
 			$table->string('message',500)->nullable();
