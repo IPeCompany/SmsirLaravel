@@ -1,6 +1,6 @@
 <p align="center"><a href="https://sms.ir"><img src="https://sms.ir/wp-content/uploads/2020/04/smsir-logo.png"></a></p>
 
-<p align="center">Official Laravel Package for sms.ir</p>
+<p align="center">Unofficial Laravel Package for sms.ir</p>
 
 [![Latest Stable Version](https://poser.pugx.org/ipecompany/smsirlaravel/v/stable)](https://packagist.org/packages/ipecompany/smsirlaravel)
 [![Total Downloads](https://poser.pugx.org/ipecompany/smsirlaravel/downloads)](https://packagist.org/packages/ipecompany/smsirlaravel)
@@ -79,6 +79,8 @@ Methods:
 > Smsirlaravel::ultraFastSend();
 
 > Smsirlaravel::getSentMessages();
+
+> Smsirlaravel::getSentMessage();
 
 > Smsirlaravel::getReceivedMessages();
 
